@@ -1,0 +1,17 @@
+{
+  "name": "팔자툰 상담실",
+  "short_name": "팔자툰",
+  "description": "사연 기반 1:1 사주 상담 준비와 가벼운 만세력 미리보기",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f6f3",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "assets/app-icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

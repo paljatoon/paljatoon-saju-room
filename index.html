@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111111" />
+    <meta name="description" content="사연 기반 1:1 사주 상담 준비와 가벼운 만세력 미리보기" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/app-icon-1024.png" />
+    <title>팔자툰 상담실</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="overrides.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="팔자툰 상담실 처음으로">
+          <span class="brand-mark">P</span>
+          <span>팔자툰 상담실</span>
+        </a>
+        <button class="text-button" id="restartButton" type="button" hidden>처음으로</button>
+      </header>
+
+      <section class="screen hero-screen" id="heroScreen">
+        <div class="eyebrow">PALJATOON COUNSELING ROOM</div>
+        <div class="hero-illustration" aria-hidden="true">
+          <div class="moon"></div>
+          <div class="hair"></div>
+          <div class="face"></div>
+          <div class="neck"></div>
+          <div class="top"></div>
+        </div>
+        <h1>사연은 먼저<br />길게 묻지 않아요.</h1>
+        <p class="lead">당신이 원래 어떤 사람인지 먼저 보고,<br />지금의 고민을 함께 이야기해요.</p>
+        <button class="primary-button" id="startButton" type="button">내 사주 확인하기</button>
+        <p class="quiet-note">생년월일시만으로 가볍게 확인할 수 있어요.</p>
+      </section>
+
+      <section class="screen form-screen" id="formScreen" hidden>
+        <div class="progress" aria-label="상담 준비 진행률">
+          <span class="progress-dot active"></span><span class="progress-line"></span>
+          <span class="progress-dot"></span><span class="progress-line"></span>
+          <span class="progress-dot"></span>
+        </div>
+
+        <section class="form-step active" data-step="1">
+          <div class="eyebrow">01 / 지금의 고민</div>
+          <h2>무엇이 가장<br />답답한가요?</h2>
+          <p class="step-description">가장 가까운 주제 하나만 골라줘요.</p>
+          <div class="choice-grid" role="group" aria-label="상담 주제 선택">
+            <button class="choice-card" type="button" data-topic="연애·결혼">연애·결혼</button>
+            <button class="choice-card" type="button" data-topic="시댁·가족">시댁·가족</button>
+            <button class="choice-card" type="button" data-topic="돈·일">돈·일</button>
+            <button class="choice-card" type="button" data-topic="나 자신">나 자신</button>
+          </div>
+          <button class="primary-button next-button" type="button" disabled>다음</button>
+        </section>
+
+        <section class="form-step" data-step="2">
+          <div class="eyebrow">02 / 사주 입력</div>
+          <h2>당신의 시간을<br />알려주세요.</h2>
+          <p class="step-description">사연은 지금 길게 적지 않아도 괜찮아요.</p>
+          <div class="input-stack">
+            <label>생년월일<input id="birthDate" type="text" inputmode="numeric" autocomplete="bday" placeholder="예: 1990.03.14" maxlength="10" aria-describedby="birthDateHint" /></label>
+            <p class="input-hint" id="birthDateHint">점(.) 없이 숫자만 입력해도 돼요.</p>
+            <div class="two-columns">
+              <label>양력 / 음력<select id="calendarType"><option value="양력">양력</option><option value="음력">음력</option></select></label>
+              <label>태어난 시간<select id="birthTime"><option value="">선택</option><option>모름</option><option>자시 (23:00–00:59)</option><option>축시 (01:00–02:59)</option><option>인시 (03:00–04:59)</option><option>묘시 (05:00–06:59)</option><option>진시 (07:00–08:59)</option><option>사시 (09:00–10:59)</option><option>오시 (11:00–12:59)</option><option>미시 (13:00–14:59)</option><option>신시 (15:00–16:59)</option><option>유시 (17:00–18:59)</option><option>술시 (19:00–20:59)</option><option>해시 (21:00–22:59)</option></select></label>
+            </div>
+            <label>출생 도시<input id="birthCity" type="text" placeholder="예: 서울" autocomplete="address-level2" /></label>
+          </div>
+          <div class="button-row"><button class="secondary-button back-button" type="button">이전</button><button class="primary-button next-button" type="button">다음</button></div>
+        </section>
+
+        <section class="form-step" data-step="3">
+          <div class="eyebrow">03 / 고민 한 줄</div>
+          <h2>지금 가장 듣고 싶은<br />말은 무엇인가요?</h2>
+          <p class="step-description">한 줄이면 충분해요. 자세한 이야기는 상담에서 들어요.</p>
+          <label class="textarea-label">고민 한 줄<textarea id="concernText" maxlength="160" placeholder="예: 결혼 안에서 제가 늘 뒤로 밀리는 것 같아요."></textarea><span id="charCount">0 / 160</span></label>
+          <div class="button-row"><button class="secondary-button back-button" type="button">이전</button><button class="primary-button" id="reviewButton" type="button">내 사주 확인하기</button></div>
+        </section>
+      </section>
+
+      <section class="screen review-screen" id="reviewScreen" hidden>
+        <div class="eyebrow">MY SAJU PREVIEW</div>
+        <h2>내 사주를<br />가볍게 봤어요.</h2>
+        <article class="summary-card">
+          <div><span>주제</span><strong id="summaryTopic">—</strong></div>
+          <div><span>생년월일</span><strong id="summaryBirth">—</strong></div>
+          <div><span>태어난 시간</span><strong id="summaryTime">—</strong></div>
+          <div><span>출생 도시</span><strong id="summaryCity">—</strong></div>
+          <div class="summary-concern"><span>고민 한 줄</span><strong id="summaryConcern">—</strong></div>
+        </article>
+        <section class="manseyeok-preview" aria-live="polite">
+          <div class="preview-heading"><span>LIGHT MANSEYEOOK</span><strong>사주팔자 미리보기</strong></div>
+          <div class="pillar-grid">
+            <div class="pillar"><span>시주</span><strong id="pillarHour">…</strong></div>
+            <div class="pillar"><span>일주</span><strong id="pillarDay">…</strong></div>
+            <div class="pillar"><span>월주</span><strong id="pillarMonth">…</strong></div>
+            <div class="pillar"><span>년주</span><strong id="pillarYear">…</strong></div>
+          </div>
+          <p class="preview-note" id="pillarNote">입력한 생년월일시를 바탕으로 계산해요.</p>
+        </section>
+        <section class="reading-preview" id="readingPreview" hidden>
+          <div class="reading-kicker">DAY PILLAR NOTE</div>
+          <h3 id="readingTitle">일주 한 줄 해석</h3>
+          <p class="reading-intro" id="readingIntro"></p>
+          <div class="reading-chapters" id="readingChapters"></div>
+          <p class="reading-disclaimer">이 내용은 일주 한 가지를 가볍게 읽은 참고용이에요. 전체 사주와 시기까지 보려면 상담에서 함께 확인해요.</p>
+        </section>
+        <p class="privacy-note">가벼운 미리보기예요. 입력한 정보는 이 화면에서만 정리돼요.</p>
+        <button class="primary-button" id="submitButton" type="button">더 자세히 유료 상담받기</button>
+        <button class="text-button edit-button" id="editButton" type="button">내용 수정하기</button>
+      </section>
+
+      <section class="screen complete-screen" id="completeScreen" hidden>
+        <div class="check">✓</div>
+        <div class="eyebrow">DEEPER READING</div>
+        <h2>더 자세한 해석은<br />상담에서 이어가요.</h2>
+        <p class="lead">관계의 반복, 시기, 일과 돈의 흐름처럼<br />한 줄로 보기 어려운 이야기를 함께 살펴봐요.</p>
+        <p class="privacy-note">온라인 30분 상담 · 생년월일시 사전 확인 · 예약 30분 전 선입금 후 진행</p>
+        <button class="primary-button" id="copyButton" type="button">상담 문의용 내용 복사하기</button>
+        <button class="text-button" id="homeButton" type="button">처음으로 돌아가기</button>
+      </section>
+
+      <footer>사주는 나를 단정하는 답이 아니라, 나를 이해하는 언어가 될 수 있어요.<br /><a href="privacy.html">개인정보 처리방침</a> · <a href="terms.html">이용 안내</a></footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

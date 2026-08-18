@@ -1,7 +1,4 @@
-Exit code: 0
-Wall time: 4.3 seconds
-Output:
-const state = { topic: '', birthDate: '', calendarType: '?묐젰', birthTime: '', birthCity: '', concern: '', step: 1 };
+const state = { topic: '', birthDate: '', calendarType: '양력', birthTime: '', birthCity: '', concern: '', step: 1 };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -35,7 +32,7 @@ function validateStepTwo() {
   state.birthTime = $('#birthTime').value;
   state.birthCity = $('#birthCity').value.trim();
   if (!/^\d{4}\.\d{2}\.\d{2}$/.test(state.birthDate) || !state.birthTime || !state.birthCity) {
-    alert('?앸뀈?붿씪, ?쒖뼱???쒓컙, 異쒖깮 ?꾩떆瑜??낅젰?댁쨾??');
+    alert('생년월일, 태어난 시간, 출생 도시를 입력해줘요.');
     return false;
   }
   return true;
@@ -53,22 +50,22 @@ function fillSummary() {
   $('#summaryBirth').textContent = `${state.birthDate} (${state.calendarType})`;
   $('#summaryTime').textContent = state.birthTime;
   $('#summaryCity').textContent = state.birthCity;
-  $('#summaryConcern').textContent = state.concern || '?곷떞?먯꽌 ?댁빞湲고븯怨??띠뼱??';
+  $('#summaryConcern').textContent = state.concern || '상담에서 이야기하고 싶어요.';
 }
 
 function hourFromBirthTime(value) {
-  if (value.includes('?먯떆')) return 23;
-  if (value.includes('異뺤떆')) return 1;
-  if (value.includes('?몄떆')) return 3;
-  if (value.includes('臾섏떆')) return 5;
-  if (value.includes('吏꾩떆')) return 7;
-  if (value.includes('?ъ떆')) return 9;
-  if (value.includes('?ㅼ떆')) return 11;
-  if (value.includes('誘몄떆')) return 13;
-  if (value.includes('?좎떆')) return 15;
-  if (value.includes('?좎떆')) return 17;
-  if (value.includes('?좎떆')) return 19;
-  if (value.includes('?댁떆')) return 21;
+  if (value.includes('자시')) return 23;
+  if (value.includes('축시')) return 1;
+  if (value.includes('인시')) return 3;
+  if (value.includes('묘시')) return 5;
+  if (value.includes('진시')) return 7;
+  if (value.includes('사시')) return 9;
+  if (value.includes('오시')) return 11;
+  if (value.includes('미시')) return 13;
+  if (value.includes('신시')) return 15;
+  if (value.includes('유시')) return 17;
+  if (value.includes('술시')) return 19;
+  if (value.includes('해시')) return 21;
   return 12;
 }
 
@@ -82,8 +79,8 @@ function julianDayNumber(year, month, day) {
 }
 
 function simpleFourPillars(year, month, day, hour) {
-  const stems = ['媛?, '??, '蹂?, '??, '臾?, '湲?, '寃?, '??, '??, '怨?];
-  const branches = ['??, '異?, '??, '臾?, '吏?, '??, '??, '誘?, '??, '??, '??, '??];
+  const stems = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계'];
+  const branches = ['자', '축', '인', '묘', '진', '사', '오', '미', '신', '유', '술', '해'];
   const boundaries = [null, 6, 4, 6, 5, 6, 6, 7, 8, 8, 7, 7];
   let monthIndex;
   if (month === 1) monthIndex = day >= 6 ? 11 : 10;
@@ -105,45 +102,46 @@ function simpleFourPillars(year, month, day, hour) {
 }
 
 const DAY_PILLAR_READINGS = {
-  ?뺤궗: {
-    title: '?뺤궗?쇱＜',
-    intro: '珥쏅텋泥섎읆 ?ъ꽭?섏?留? 留덉쓬??湲곗?? ?앷컖蹂대떎 ?④굅???щ엺?댁뿉?? 醫뗭븘?섎뒗 寃껉낵 ?꾨땶 寃껋씠 遺꾨챸?댁슂.',
+  정사: {
+    title: '정사일주',
+    intro: '촛불처럼 섬세하지만, 마음속 기준은 생각보다 뜨거운 사람이에요. 좋아하는 것과 아닌 것이 분명해요.',
     chapters: [
-      ['寃고샎쨌?곗븷', '留덉쓬???대━硫?源딄쾶 紐곗엯?섏?留? ?좊ℓ???쒕룄媛 湲몄뼱吏硫?鍮좊Ⅴ寃?吏爾먯슂. ?щ옉?먯꽌??留먮낫???됰룞怨??쇨??깆쓣 遊먯슂.'],
-      ['?⑥옄', '?섎? 媛瑜댁튂???ㅺ굅??湲곗꽭濡??꾨Ⅴ?ㅻ뒗 ?щ엺蹂대떎, ?먭린 紐レ쓣 ?대궡硫댁꽌 ??붽? ?섎뒗 ?⑥옄? ?ㅻ옒 媛???몄씠?먯슂.'],
-      ['??, '媛먭컖쨌?쒗쁽쨌湲고쉷???섏씠 ?ㅻ━湲??ъ썙?? ?щ엺??留덉쓬???쎌뼱 留먭낵 ?댁빞湲곕줈 ??대궡???? ???대쫫??嫄멸퀬 ?섎뒗 ?쇱씠 ??留욎쓣 ???덉뼱??'],
-      ['?쇱깮???먮쫫', '泥섏쓬遺???명븯寃?留욎떠媛湲곕낫?? ?쒗뻾李⑹삤 ?띿뿉????湲곗????몄슦硫??⑤떒?댁?????낆씠?먯슂. ?좏깮??以꾩씠怨?吏묒쨷?좎닔濡??섏씠 紐⑥뿬??'],
+      ['결혼·연애', '마음이 열리면 깊게 몰입하지만, 애매한 태도가 길어지면 빠르게 지쳐요. 사랑에서도 말보다 행동과 일관성을 봐요.'],
+      ['남자', '나를 가르치려 들거나 기세로 누르려는 사람보다, 자기 몫을 해내면서 대화가 되는 남자와 오래 가는 편이에요.'],
+      ['일', '감각·표현·기획에 힘이 실리기 쉬워요. 사람의 마음을 읽어 말과 이야기로 풀어내는 일, 내 이름을 걸고 하는 일이 잘 맞을 수 있어요.'],
+      ['일생의 흐름', '처음부터 편하게 맞춰가기보다, 시행착오 속에서 내 기준을 세우며 단단해지는 타입이에요. 선택을 줄이고 집중할수록 힘이 모여요.'],
     ],
   },
 };
 
-// 紐⑤뱺 ?쇱＜??媛숈? ??媛쒖쓽 梨뺥꽣瑜??쒓났?쒕떎. ?꾨옒 寃곗? '?뺤젙'???꾨땲??// ?쇱＜瑜?媛蹂띻쾶 ?쎈뒗 泥?臾몄옣?쇰줈留??ъ슜?쒕떎.
+// 모든 일주는 같은 네 개의 챕터를 제공한다. 아래 결은 '확정'이 아니라
+// 일주를 가볍게 읽는 첫 문장으로만 사용한다.
 const STEM_TONES = {
-  媛? { intro: '怨㏐쾶 六쀫뒗 ?섎Т泥섎읆 ?먭린 諛⑺뼢??癒쇱? ?몄슦?ㅻ뒗 寃곗씠 ?덉뼱??', relation: '愿怨꾩뿉?쒕룄 議댁쨷諛쏅뒗 ?먮굦??以묒슂?섍퀬, 吏?섏튇 媛꾩꽠?먮뒗 湲덈갑 ?듬떟?⑥쓣 ?먮굜 ???덉뼱??', work: '?쒖옉??留뚮뱶???쇨낵 ?덈줈???먯쓣 ?щ뒗 ??븷?먯꽌 ?섏씠 ?섍린 ?ъ썙??', flow: '珥덈컲?먮뒗 遺?ろ엳硫?諛곗슦怨? ?먭린 湲곗????⑤떒?댁쭏?섎줉 ?띾룄媛 遺숇뒗 ?몄씠?먯슂.' },
-  ?? { intro: '遺?쒕윭???泥섎읆 二쇰????먮쫫???쎄퀬 ?곌껐?섎뒗 媛먭컖???덉뼱??', relation: '?ㅼ젙?⑥쓣 二쇨퀬諛쏆쓣 ???명븯吏留? 留덉쓬???뚯븘二쇱? ?딅뒗 愿怨꾩뿉?쒕뒗 ?쎄쾶 吏移????덉뼱??', work: '議곗쑉쨌湲고쉷쨌愿怨?愿由ъ쿂???ъ꽭?섍쾶 ?댁뼱媛???쇱뿉???μ젏??蹂댁뿬??', flow: '鍮⑤━ 諛?대텤?닿린蹂대떎 ?섍꼍?????몄쑝濡?留뚮뱾硫?袁몄???而ㅺ????먮쫫?댁뿉??' },
-  蹂? { intro: '?뉖튆泥섎읆 ?붿쭅?섍퀬 諛붽묑?쇰줈 ?먮꼫吏媛 ?쒕윭?섎뒗 寃곗씠 ?덉뼱??', relation: '?듬떟???덉튂 寃뚯엫蹂대떎 遺꾨챸?섍퀬 諛앹? ?뚰넻?먯꽌 留덉쓬???명빐??', work: '?쒗쁽쨌?띾낫쨌由щ뜑??쿂??議댁옱媛먯쓣 ?곕뒗 ?쇱뿉???섏씠 ?????덉뼱??', flow: '寃쏀뿕???볦씪?섎줉 ?곹뼢?κ낵 ?먯떊媛먯씠 ?④퍡 而ㅼ????몄씠?먯슂.' },
-  ?? { intro: '珥쏅텋泥섎읆 ?ъ꽭?섏?留?留덉쓬??湲곗?? ?④굅??寃곗씠 ?덉뼱??', relation: '留먮낫???쒕룄? ?쇨??깆쓣 蹂닿퀬, ?좊ℓ?⑥씠 湲몄뼱吏硫?留덉쓬???묎린 ?ъ썙??', work: '媛먭컖쨌?쒗쁽쨌湲고쉷泥섎읆 留덉쓬???쎌뼱 ?댁빞湲곕줈 ??대궡???쇱뿉 媛뺤젏???덉뼱??', flow: '?먭린 由щ벉??李얘퀬 吏묒쨷?좎닔濡?寃곌낵媛 李④끝李④끝 ?볦씠???몄씠?먯슂.' },
-  臾? { intro: '???곗쿂??梨낆엫怨?以묒떖??以묒떆?섎뒗 寃곗씠 ?덉뼱??', relation: '媛踰쇱슫 留먮낫???좊ː媛 以묒슂?섍퀬, ?ㅻ옒 蹂쇱닔濡?留덉쓬???щ뒗 ?몄씠?먯슂.', work: '愿由?룹슫?겶룻뙋?⑥쿂???좊뱺?섍쾶 以묒떖???〓뒗 ?쇱뿉??媛뺤젏??蹂댁뿬??', flow: '鍮좊Ⅸ 蹂?붾낫??湲곕컲???ㅼ졇 媛덉닔濡??덉젙?곸씤 ?깃낵媛 ?섍린 ?ъ썙??' },
-  湲? { intro: '??媛덈┛ ?숈쿂???꾩떎???뚮낫怨??ㅼ슦??寃곗씠 ?덉뼱??', relation: '?묒? 諛곕젮? ?앺솢???⑹씠 留욎쓣 ??愿怨꾩뿉 源딆? ?덉젙???먭뺨??', work: '?뚮큵쨌?ㅻТ쨌釉뚮옖?⑹쿂???먯뿉 ?≫엳??寃곌낵瑜?留뚮뱶???쇨낵 ??留욎쓣 ???덉뼱??', flow: '?덉뿉 ?꾩? ?딅뒗 以鍮꾧? ?섏쨷????李⑥씠瑜?留뚮뱶???몄씠?먯슂.' },
-  寃? { intro: '?좎씠 ???좎쿂??寃곕떒怨??먯튃??遺꾨챸??寃곗씠 ?덉뼱??', relation: '?뚮젮 留먰븯湲곕낫???붿쭅?⑥쓣 ?좏샇?섏?留? 留먯쓽 ?⑤룄???섏떇?좎닔濡?愿怨꾧? ?명빐?몄슂.', work: '媛쒖쿃쨌寃곗젙쨌臾몄젣 ?닿껐泥섎읆 ?듭쓣 留뚮뱾?댁빞 ?섎뒗 ?먮━?먯꽌 ?섏씠 ?섏슂.', flow: '遺?ろ옒??寃쏀뿕?쇰줈 諛붽??섎줉 ?먭린 ?ㅻ젰???쒕졆?댁????몄씠?먯슂.' },
-  ?? { intro: '蹂댁꽍泥섎읆 ?뺢탳?섍퀬 ?ъ꽭??湲곗???媛吏?寃곗씠 ?덉뼱??', relation: '痍⑦뼢怨??덉쓽媛 留욌뒗 愿怨꾩뿉??留덉쓬???대━怨? 臾댁떖?⑥뿉???덈??댁쭏 ???덉뼱??', work: '?뷀뀒?셋룸텇?씲룸?媛먯쿂???꾩꽦?꾨? ?믪씠???쇱뿉??媛뺤젏??蹂댁뿬??', flow: '泥쒖쿇??怨좊Ⅸ ?좏깮???섏쨷??醫뗭? 寃곌낵濡??댁뼱吏湲??ъ썙??' },
-  ?? { intro: '??臾쇱쿂???볤쾶 蹂닿퀬 ?ш쾶 ?吏곸씠?ㅻ뒗 寃곗씠 ?덉뼱??', relation: '?먯쑀濡쒖슫 ??붿? ?깆옣媛먯씠 ?덉뼱??愿怨꾨룄 ?ㅻ옒 利먭만 ???덉뼱??', work: '湲고쉷쨌?뺤옣쨌?대룞泥섎읆 ?볦? ?먯쓣 ?ㅻ（???쇱뿉??湲곗슫???댁븘?????덉뼱??', flow: '諛⑺뼢???뺥븳 ?ㅼ뿉???덉긽蹂대떎 硫由ш퉴吏 ?섏븘媛???몄씠?먯슂.' },
-  怨? { intro: '?댁뒳鍮꾩쿂??愿李곕젰怨?吏곴컧???ъ꽭??寃곗씠 ?덉뼱??', relation: '?쒗쁽? 議곗떖?ㅻ윭?뚮룄 留덉쓬??源딆씠 ?쎄퀬, ?덉쟾??愿怨꾩뿉??吏꾩떖??蹂댁뿬以섏슂.', work: '?곌뎄쨌?곷떞쨌肄섑뀗痢좎쿂??蹂댁씠吏 ?딅뒗 寃곗쓣 ?쎈뒗 ?쇱뿉??媛뺤젏??蹂댁뿬??', flow: '議곗슜???볦븘 ??媛먭컖??寃곗젙?곸씤 ?쒓컙??鍮쏅굹???몄씠?먯슂.' },
+  갑: { intro: '곧게 뻗는 나무처럼 자기 방향을 먼저 세우려는 결이 있어요.', relation: '관계에서도 존중받는 느낌이 중요하고, 지나친 간섭에는 금방 답답함을 느낄 수 있어요.', work: '시작을 만드는 일과 새로운 판을 여는 역할에서 힘이 나기 쉬워요.', flow: '초반에는 부딪히며 배우고, 자기 기준이 단단해질수록 속도가 붙는 편이에요.' },
+  을: { intro: '부드러운 풀처럼 주변의 흐름을 읽고 연결하는 감각이 있어요.', relation: '다정함을 주고받을 때 편하지만, 마음을 알아주지 않는 관계에서는 쉽게 지칠 수 있어요.', work: '조율·기획·관계 관리처럼 섬세하게 이어가는 일에서 장점이 보여요.', flow: '빨리 밀어붙이기보다 환경을 내 편으로 만들며 꾸준히 커가는 흐름이에요.' },
+  병: { intro: '햇빛처럼 솔직하고 바깥으로 에너지가 드러나는 결이 있어요.', relation: '답답한 눈치 게임보다 분명하고 밝은 소통에서 마음이 편해요.', work: '표현·홍보·리더십처럼 존재감을 쓰는 일에서 힘이 날 수 있어요.', flow: '경험이 쌓일수록 영향력과 자신감이 함께 커지는 편이에요.' },
+  정: { intro: '촛불처럼 섬세하지만 마음속 기준은 뜨거운 결이 있어요.', relation: '말보다 태도와 일관성을 보고, 애매함이 길어지면 마음을 접기 쉬워요.', work: '감각·표현·기획처럼 마음을 읽어 이야기로 풀어내는 일에 강점이 있어요.', flow: '자기 리듬을 찾고 집중할수록 결과가 차곡차곡 쌓이는 편이에요.' },
+  무: { intro: '큰 산처럼 책임과 중심을 중시하는 결이 있어요.', relation: '가벼운 말보다 신뢰가 중요하고, 오래 볼수록 마음을 여는 편이에요.', work: '관리·운영·판단처럼 든든하게 중심을 잡는 일에서 강점이 보여요.', flow: '빠른 변화보다 기반을 다져 갈수록 안정적인 성과가 나기 쉬워요.' },
+  기: { intro: '잘 갈린 흙처럼 현실을 돌보고 키우는 결이 있어요.', relation: '작은 배려와 생활의 합이 맞을 때 관계에 깊은 안정을 느껴요.', work: '돌봄·실무·브랜딩처럼 손에 잡히는 결과를 만드는 일과 잘 맞을 수 있어요.', flow: '눈에 띄지 않는 준비가 나중에 큰 차이를 만드는 편이에요.' },
+  경: { intro: '날이 선 쇠처럼 결단과 원칙이 분명한 결이 있어요.', relation: '돌려 말하기보다 솔직함을 선호하지만, 말의 온도는 의식할수록 관계가 편해져요.', work: '개척·결정·문제 해결처럼 답을 만들어야 하는 자리에서 힘이 나요.', flow: '부딪힘을 경험으로 바꿀수록 자기 실력이 뚜렷해지는 편이에요.' },
+  신: { intro: '보석처럼 정교하고 섬세한 기준을 가진 결이 있어요.', relation: '취향과 예의가 맞는 관계에서 마음이 열리고, 무심함에는 예민해질 수 있어요.', work: '디테일·분석·미감처럼 완성도를 높이는 일에서 강점이 보여요.', flow: '천천히 고른 선택이 나중에 좋은 결과로 이어지기 쉬워요.' },
+  임: { intro: '큰 물처럼 넓게 보고 크게 움직이려는 결이 있어요.', relation: '자유로운 대화와 성장감이 있어야 관계도 오래 즐길 수 있어요.', work: '기획·확장·이동처럼 넓은 판을 다루는 일에서 기운이 살아날 수 있어요.', flow: '방향을 정한 뒤에는 예상보다 멀리까지 나아가는 편이에요.' },
+  계: { intro: '이슬비처럼 관찰력과 직감이 섬세한 결이 있어요.', relation: '표현은 조심스러워도 마음을 깊이 읽고, 안전한 관계에서 진심을 보여줘요.', work: '연구·상담·콘텐츠처럼 보이지 않는 결을 읽는 일에서 강점이 보여요.', flow: '조용히 쌓아 둔 감각이 결정적인 순간에 빛나는 편이에요.' },
 };
 
 const BRANCH_TONES = {
-  ?? '鍮좊Ⅸ 媛먭컖怨??곹솴 ?먮떒???뷀빐?? 寃됱쑝濡쒕뒗 李⑤텇?대룄 ?띿깮媛곸씠 諛붿걽 ???덉뼱??',
-  異? '?좎쨷?④낵 ?덇린媛 ?뷀빐?? ?쎄쾶 ?쎌냽?섏? ?딆?留???踰??뺥븯硫??ㅻ옒 媛???몄씠?먯슂.',
-  ?? '?꾩쟾?ш낵 ?먯〈媛먯씠 ?뷀빐?? ??湲몄씠?쇰뒗 ?뺤떊???앷만 ??異붿쭊?μ씠 而ㅼ졇??',
-  臾? '媛먯닔?깃낵 誘멸컧???뷀빐?? 遺꾩쐞湲곗? 留먯쓽 寃곗쓣 ?몄떖?섍쾶 ?먮겮???몄씠?먯슂.',
-  吏? '?꾩떎 媛먭컖怨??뺤옣?깆씠 ?뷀빐?? ?묒? 媛?μ꽦???ш쾶 ?ㅼ슦?ㅻ뒗 硫댁씠 ?덉뼱??',
-  ?? '吏묒쨷?κ낵 吏곴컧???뷀빐?? 愿?ъ씠 ?앷릿 ?쇱뿉??源딄쾶 ?뚭퀬?쒕뒗 ?몄씠?먯슂.',
-  ?? '?쒗쁽?κ낵 ?띾룄媛 ?뷀빐?? ?듬떟???섍꼍蹂대떎 ?쒓린 ?덈뒗 ?먮쫫?먯꽌 ?섏씠 ?섏슂.',
-  誘? '諛곕젮? 議고솕 媛먭컖???뷀빐?? ?щ엺怨??꾩떎 ?ъ씠??洹좏삎???ㅻ옒 ?앷컖?댁슂.',
-  ?? '?ъ튂? ?꾨왂???뷀빐?? ??꽑 ?곹솴?먯꽌??諛⑸쾿??鍮⑤━ 李얠븘?대뒗 ?몄씠?먯슂.',
-  ?? '?뺥솗?④낵 ?щ??덉씠 ?뷀빐?? ?댁꽕??寃껊낫??源붾걫??湲곗????좏샇?댁슂.',
-  ?? '?섎━? 諛⑹뼱 蹂몃뒫???뷀빐?? ???щ엺怨????먯튃??吏?ㅻ젮??留덉쓬??而ㅼ슂.',
-  ?? '怨듦컧怨??곸긽?μ씠 ?뷀빐?? ?щ엺???띾쭏?뚭낵 媛?μ꽦???볤쾶 諛붾씪蹂대뒗 ?몄씠?먯슂.',
+  자: '빠른 감각과 상황 판단이 더해져, 겉으로는 차분해도 속생각이 바쁠 수 있어요.',
+  축: '신중함과 끈기가 더해져, 쉽게 약속하지 않지만 한 번 정하면 오래 가는 편이에요.',
+  인: '도전심과 자존감이 더해져, 내 길이라는 확신이 생길 때 추진력이 커져요.',
+  묘: '감수성과 미감이 더해져, 분위기와 말의 결을 세심하게 느끼는 편이에요.',
+  진: '현실 감각과 확장성이 더해져, 작은 가능성도 크게 키우려는 면이 있어요.',
+  사: '집중력과 직감이 더해져, 관심이 생긴 일에는 깊게 파고드는 편이에요.',
+  오: '표현력과 속도가 더해져, 답답한 환경보다 활기 있는 흐름에서 힘이 나요.',
+  미: '배려와 조화 감각이 더해져, 사람과 현실 사이의 균형을 오래 생각해요.',
+  신: '재치와 전략이 더해져, 낯선 상황에서도 방법을 빨리 찾아내는 편이에요.',
+  유: '정확함과 심미안이 더해져, 어설픈 것보다 깔끔한 기준을 선호해요.',
+  술: '의리와 방어 본능이 더해져, 내 사람과 내 원칙을 지키려는 마음이 커요.',
+  해: '공감과 상상력이 더해져, 사람의 속마음과 가능성을 넓게 바라보는 편이에요.',
 };
 
 function createDayPillarReading(dayPillar) {
@@ -153,13 +151,13 @@ function createDayPillarReading(dayPillar) {
   const branchTone = BRANCH_TONES[branch];
   if (!tone || !branchTone) return null;
   return {
-    title: `${dayPillar}?쇱＜`,
+    title: `${dayPillar}일주`,
     intro: `${tone.intro} ${branchTone}`,
     chapters: [
-      ['?곗븷쨌愿怨?, `${tone.relation} ${branchTone}`],
-      ['?щ엺', '??留욌뒗 ?щ엺? ?섎? ?⑤?濡?洹쒖젙?섏? ?딄퀬, ?쒕줈??湲곗?????붾줈 留욎떠 媛???щ엺?댁뿉?? ?쇱＜ ?섎굹留뚯쑝濡?沅곹빀 ?꾩껜瑜??⑥젙?섏쭊 ?딆븘??'],
-      ['??, `${tone.work} ?ъ＜ ?꾩껜 援ъ“? ?쒓린???곕씪 ?곗씠??諛⑹떇? ?щ씪吏????덉뼱??`],
-      ['?쇱깮???먮쫫', `${tone.flow} 吏湲덉쓽 ?닿낵 ?섍꼍源뚯? ?④퍡 蹂대㈃ ??援ъ껜?곸씤 諛⑺뼢???쎌쓣 ???덉뼱??`],
+      ['연애·관계', `${tone.relation} ${branchTone}`],
+      ['사람', '잘 맞는 사람은 나를 함부로 규정하지 않고, 서로의 기준을 대화로 맞춰 가는 사람이에요. 일주 하나만으로 궁합 전체를 단정하진 않아요.'],
+      ['일', `${tone.work} 사주 전체 구조와 시기에 따라 쓰이는 방식은 달라질 수 있어요.`],
+      ['일생의 흐름', `${tone.flow} 지금의 운과 환경까지 함께 보면 더 구체적인 방향을 읽을 수 있어요.`],
     ],
   };
 }
@@ -169,9 +167,9 @@ function renderDayPillarReading(dayPillar) {
   const reading = DAY_PILLAR_READINGS[dayPillar] || createDayPillarReading(dayPillar);
   preview.hidden = false;
   if (!reading) {
-    $('#readingTitle').textContent = `${dayPillar}?쇱＜`;
-    $('#readingIntro').textContent = '?쇱＜???섎? ?吏곸씠??湲곕낯 寃곗쓣 蹂댁뿬二쇰뒗 ???λ㈃?댁뿉??';
-    $('#readingChapters').innerHTML = '<article class="reading-chapter"><strong>媛踰쇱슫 誘몃━蹂닿린</strong><p>吏湲덉? ?ъ＜?붿옄? ?쇱＜留?癒쇱? ?뺤씤?덉뼱?? 愿怨? ?? ?쒓린源뚯? ?먯꽭??蹂대젮硫??좊즺 ?곷떞?먯꽌 ?꾩껜 援ъ“瑜??④퍡 ?쎌뼱遊먯슂.</p></article>';
+    $('#readingTitle').textContent = `${dayPillar}일주`;
+    $('#readingIntro').textContent = '일주는 나를 움직이는 기본 결을 보여주는 한 장면이에요.';
+    $('#readingChapters').innerHTML = '<article class="reading-chapter"><strong>가벼운 미리보기</strong><p>지금은 사주팔자와 일주만 먼저 확인했어요. 관계, 일, 시기까지 자세히 보려면 유료 상담에서 전체 구조를 함께 읽어봐요.</p></article>';
     return;
   }
   $('#readingTitle').textContent = reading.title;
@@ -181,21 +179,21 @@ function renderDayPillarReading(dayPillar) {
 
 function fillManseyeokPreview() {
   const labels = { year: $('#pillarYear'), month: $('#pillarMonth'), day: $('#pillarDay'), hour: $('#pillarHour') };
-  if (state.calendarType === '?뚮젰') {
-    Object.values(labels).forEach((item) => { item.textContent = '??; });
+  if (state.calendarType === '음력') {
+    Object.values(labels).forEach((item) => { item.textContent = '—'; });
     $('#readingPreview').hidden = true;
-    $('#pillarNote').textContent = '?뚮젰쨌?ㅻ떖? ?뺤떇 留뚯꽭??怨꾩궛?먯꽌 ?뺤씤?댁슂. 吏湲?誘몃━蹂닿린???묐젰 ?낅젰留?吏?먰빐.';
+    $('#pillarNote').textContent = '음력·윤달은 정식 만세력 계산에서 확인해요. 지금 미리보기는 양력 입력만 지원해.';
     return;
   }
   const [year, month, day] = state.birthDate.split('.').map(Number);
-  const timeUnknown = state.birthTime.includes('紐⑤쫫');
+  const timeUnknown = state.birthTime.includes('모름');
   const result = simpleFourPillars(year, month, day, hourFromBirthTime(state.birthTime));
   labels.year.textContent = result.year;
   labels.month.textContent = result.month;
   labels.day.textContent = result.day;
-  labels.hour.textContent = timeUnknown ? '誘몄긽' : result.hour;
+  labels.hour.textContent = timeUnknown ? '미상' : result.hour;
   renderDayPillarReading(result.day);
-  $('#pillarNote').textContent = timeUnknown ? '異쒖깮 ?쒓컙???놁뼱 ?쒖＜???쒖떆?섏? ?딆븯?댁슂. ?꽷룹썡쨌?쇱＜???뺤씤?????덉뼱??' : '媛踰쇱슫 ?묐젰 誘몃━蹂닿린?덉슂. ?덇린 寃쎄퀎쨌?댁쇅 異쒖깮쨌?먯젙 ?꾪썑???곷떞 ???ㅼ떆 ?뺤씤?댁슂.';
+  $('#pillarNote').textContent = timeUnknown ? '출생 시간이 없어 시주는 표시하지 않았어요. 년·월·일주는 확인할 수 있어요.' : '가벼운 양력 미리보기예요. 절기 경계·해외 출생·자정 전후는 상담 전 다시 확인해요.';
 }
 
 $('#startButton').addEventListener('click', () => { showScreen(form); moveTo(1); });
@@ -224,10 +222,9 @@ $('#reviewButton').addEventListener('click', () => { state.concern = $('#concern
 $('#editButton').addEventListener('click', () => { showScreen(form); moveTo(3); });
 $('#submitButton').addEventListener('click', () => showScreen(complete));
 $('#copyButton').addEventListener('click', async () => {
-  const message = `[?붿옄???곷떞 以鍮?\n二쇱젣: ${state.topic}\n?앸뀈?붿씪: ${state.birthDate} (${state.calendarType})\n?쒖뼱???쒓컙: ${state.birthTime}\n異쒖깮 ?꾩떆: ${state.birthCity}\n怨좊?: ${state.concern || '?곷떞?먯꽌 ?댁빞湲고븯怨??띠뼱??'}`;
-  try { await navigator.clipboard.writeText(message); $('#copyButton').textContent = '蹂듭궗?먯뼱??; }
-  catch { $('#copyButton').textContent = '蹂듭궗???ㅽ뙣?덉뼱??; }
+  const message = `[팔자툰 상담 준비]\n주제: ${state.topic}\n생년월일: ${state.birthDate} (${state.calendarType})\n태어난 시간: ${state.birthTime}\n출생 도시: ${state.birthCity}\n고민: ${state.concern || '상담에서 이야기하고 싶어요.'}`;
+  try { await navigator.clipboard.writeText(message); $('#copyButton').textContent = '복사됐어요'; }
+  catch { $('#copyButton').textContent = '복사에 실패했어요'; }
 });
 
 syncProgress();
-

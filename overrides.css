@@ -33,27 +33,14 @@
 .reading-disclaimer { margin: 13px 2px 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
 footer a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
 
-/* 첫 화면의 단순한 얼굴에만 살짝 표정을 더한다. */
-.face::before {
-  content: "·  ·";
-  position: absolute;
-  top: 35px;
-  left: 25px;
-  color: var(--ink);
-  font-family: Georgia, serif;
-  font-size: 23px;
-  letter-spacing: 7px;
-  line-height: 1;
-}
-
+/* 첫 화면의 단순한 얼굴에만 아주 작은 미소를 더한다. */
 .face::after {
-  content: "⌣";
+  content: "";
   position: absolute;
-  top: 53px;
-  left: 37px;
-  color: var(--ink);
-  font-family: Georgia, serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
+  top: 62px;
+  left: 38px;
+  width: 20px;
+  height: 10px;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 0 0 18px 18px;
 }
